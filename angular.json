@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ofo-app"
+    }
+  },
+  "defaultProject": "ofo-app",
+  "cli": {
+    "analytics": "597cf0b3-8ea9-4082-8dc9-ecb2f3b4c00d"
+  }
 }
