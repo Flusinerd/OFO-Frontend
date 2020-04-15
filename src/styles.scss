@@ -1,5 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap');
+
+// Colors
+$color-grey2: #4f4f4f;
+$color-grey3: #828282;
+$color-orange: #f2994a;
+$color-yellow: #F2C94C;
+$color-green1: #219653;
+$color-blue3: #56CCF2;
+$color-purple2: #BB6BD9;
+
 body {
+    font-family: 'Montserrat', sans-serif;
     background-color: #272727;
     color: #ffffff;
+    min-height: 100%;
+    text-align: center;
+}
+
+button, input.ofo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    height: 46px;
+    border: none;
+    border-radius: 20px;
+    padding-left: 20px;
+    font-size: 16px;
+    outline: none;
+    color: white;
+} ::placeholder {
+    color: #f2f2f2;
+}
+
+button.ofo {
+    text-align: center;
+    padding-right: 20px;
+    font-weight: 400;
 }

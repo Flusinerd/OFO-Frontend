@@ -1,1 +1,37 @@
-<p>home works!</p>
+<div class="view">
+    <span>OFO</span>
+    <div *ngIf="slide === 1" class="slide1">
+        <input class="ofo title" placeholder="Was">
+        <div class="dateRow">
+            <input class="ofo date" placeholder="Termin">
+            <input class="ofo time" placeholder="">
+            <input class="ofo time" placeholder="">
+        </div>
+        <div class="dateRow inactive">
+            <input class="ofo date" placeholder="Termin">
+            <input class="ofo time" placeholder="">
+            <input class="ofo time" placeholder="">
+        </div>
+        <button class="ofo next" (click)="slide = 2">Weiter</button>
+    </div>
+    <div *ngIf="slide === 2" class="slide2">
+        <input class="ofo title" placeholder="Was">
+        <div class="dateRow inactive">
+            <input class="ofo platform" placeholder="Plattform">
+        </div>
+        <div class="dateRow inactive">
+            <input class="ofo platform" placeholder="Oder...">
+        </div>
+        <button class="ofo share" (click)="slide = 3">Teilen</button>
+    </div>
+    <div *ngIf="slide === 3" class="slide2">
+        <input class="ofo link" value="https://ofo.de/1wddd24r2" disabled>
+        <div class="dateRow inactive">
+            <input class="ofo platform" placeholder="Einladung an E-Mail...">
+        </div>
+        <div class="dateRow inactive">
+            <input class="ofo platform" placeholder="Und...">
+        </div>
+        <button class="ofo send" (click)="slide = 1">Senden</button>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+@import '../../styles.scss';
+
+div.view {
+    position: absolute;
+    width: 340px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    span {
+        font-size: 6rem;
+        font-weight: 200;
+    }
+}
+
+input.title {
+    margin-top: 73px;
+    width: 241px;
+    background-color: $color-orange;
+}
+
+.inactive {
+    input {
+        background-color: $color-grey2;
+    }
+}
+
+input.date {
+    width: 80px;
+    background-color: $color-grey3;
+}
+
+input.time {
+    width: 45px;
+    margin-left: 15px;
+    background-color: $color-grey3;
+}
+
+button.next {
+    margin-top: 20px;
+    margin-left: 92px;
+    background-color: $color-green1;
+    width: 170px;
+}
+
+input.platform {
+    width: 241px;
+    background-color: $color-grey3;
+}
+
+button.ofo {
+    margin-top: 20px;
+    margin-left: 92px;
+    width: 170px;
+}
+
+button.share {
+    background-color: $color-yellow;
+    color: black;
+}
+
+input.link {
+    margin-top: 73px;
+    background-color: $color-purple2;
+    width: 260px;
+    padding-left: 0px;
+    color: #f2f2f2;
+    text-align: center;
+}
+
+button.send {
+    background-color: $color-blue3;
+    color: black;
+}
+
+div.dateRow {
+    margin-top: 20px;
+}
