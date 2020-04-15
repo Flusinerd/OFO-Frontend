@@ -5,7 +5,21 @@ before_script:
   - sudo apt-get install g++ build-essential
   - npm install -g @angular/cli
 
-script:
-  - ng lint
-  - ng test
-  - ng build --prod
+stages:
+  - test
+  - build
+
+
+jobs:
+  include:
+    - stage: test
+      name: "Unit Tests"
+      script: npm run test-headless
+    - stage: test
+      name: "Linting"
+      script: ng lint
+    - stage: build
+      name: "Build frontend"
+      script: "ng build --prod --release"
+      if: branch = master
+      
