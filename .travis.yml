@@ -20,20 +20,20 @@ jobs:
   include:
     - stage: test
       name: "Unit Tests"
+
       script: npm run test-headless
     - stage: test
       name: "Linting"
       script: ng lint
+
     - stage: build
+      if: branch = master
       name: "Build frontend"
       script: "ng build --prod"
-      if: branch = master
-
-
-deploy:
-  provider: releases
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist/ofo-app
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        api_key: $GITHUB_TOKEN
+        local_dir: dist/ofo-app
 
       
