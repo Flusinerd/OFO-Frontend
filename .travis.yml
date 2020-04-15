@@ -14,7 +14,6 @@ stages:
   - test
   - build
 
-
 jobs:
   include:
     - stage: test
@@ -33,6 +32,5 @@ jobs:
         provider: releases
         skip_cleanup: true
         api_key: $GITHUB_TOKEN
-        local_dir: dist/ofo-app
-
-      
+        file: dist/*
+        file_glob: true
