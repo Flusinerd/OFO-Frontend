@@ -10,9 +10,13 @@ before_install:
 before_script:
   - npm install -g @angular/cli
 
+
+8cf26314d7f9c17f8116e4e107192494167b6b76
+
 stages:
   - test
   - build
+  - deploy
 
 
 jobs:
@@ -25,6 +29,14 @@ jobs:
       script: ng lint
     - stage: build
       name: "Build frontend"
-      script: "ng build --prod --release"
+      script: "ng build --prod"
       if: branch = master
+
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/ofo-app
+
       
