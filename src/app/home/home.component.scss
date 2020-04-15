@@ -12,6 +12,18 @@ div.view {
     }
 }
 
+div.slideholder {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-height: 400px;
+    min-width: 260px;
+}
+
+div.slide {
+    position: absolute;
+}
+
 input.title {
     margin-top: 73px;
     width: 241px;
