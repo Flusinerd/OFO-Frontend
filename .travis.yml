@@ -10,9 +10,6 @@ before_install:
 before_script:
   - npm install -g @angular/cli
 
-
-8cf26314d7f9c17f8116e4e107192494167b6b76
-
 stages:
   - test
   - build
