@@ -12,9 +12,25 @@ div.view {
     }
 }
 
+div.slideholder {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-height: 400px;
+    min-width: 260px;
+}
+
+div.slide {
+    position: absolute;
+    transform: scale(0.8);
+    display: flex;
+    flex-direction: column;
+}
+
 input.title {
     margin-top: 73px;
-    width: 241px;
+    width: 90%;
+    padding-right: 20px;
     background-color: $color-orange;
 }
 
@@ -25,21 +41,31 @@ input.title {
 }
 
 input.date {
-    width: 80px;
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 5px;
+    width: 140px;
     background-color: $color-grey3;
 }
 
 input.time {
-    width: 45px;
+    padding: 0;
+    padding-left: 10px;
+    width: 80px;
     margin-left: 15px;
     background-color: $color-grey3;
 }
 
 button.next {
     margin-top: 20px;
-    margin-left: 92px;
+    align-self: flex-end;
     background-color: $color-green1;
     width: 170px;
+    transition: background-color 0.25s, color 0.25s, opacity 0.25s;
+} :disabled {
+    background-color: $color-grey2 !important;
+    color: $color-grey3 !important;
+    opacity: 0;
 }
 
 input.platform {
@@ -56,6 +82,9 @@ button.ofo {
 button.share {
     background-color: $color-yellow;
     color: black;
+    transition: opacity 0.25s;
+} :disabled {
+    opacity: 0;
 }
 
 input.link {
@@ -73,5 +102,8 @@ button.send {
 }
 
 div.dateRow {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
     margin-top: 20px;
 }
