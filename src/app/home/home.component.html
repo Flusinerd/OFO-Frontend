@@ -10,7 +10,7 @@
                     <input formControlName="endTime" class="ofo time" type="time" (click)="checkForNewDateRow(i)">
                 </ng-container>
             </div>
-            <button [disabled]="title.invalid || dates.controls[0].invalid" class="ofo next" (click)="next(); slide = 2">Weiter</button>
+            <button [disabled]="title.invalid" class="ofo next" (click)="next(); slide = 2">Weiter</button>
         </div>
         <div *ngIf="slide === 2" [@inOutAnimation] class="slide">
             <input formControlName="title" class="ofo title" placeholder="Was">
@@ -22,7 +22,7 @@
             <button class="ofo share" [disabled]="platforms.controls[0].invalid" (click)="share(); slide = 3">Teilen</button>
         </div>
         <div *ngIf="slide === 3" [@inOutAnimation] class="slide">
-            <input class="ofo link" value="https://ofo.de/1wddd24r2">
+            <input class="ofo link" [value]="'https://ofo.de/' + user.event.eventId">
             <div class="dateRow inactive">
                 <input class="ofo platform" placeholder="Einladung an E-Mail...">
             </div>
