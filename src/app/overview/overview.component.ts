@@ -1,5 +1,5 @@
 import { Component, OnInit, InjectionToken, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -32,12 +32,19 @@ export class OverviewComponent implements OnInit {
              @Inject(WINDOW) private window: Window,
              private _apollo:Apollo,
              private _snackBar: MatSnackBar,
-             private _cookieService: CookieService) { }
+             private _cookieService: CookieService,
+             private _router: Router) { }
 
   ngOnInit() {
     if (!this._activeRouteSUB) {
       this._activeRouteSUB = this._activeRoute.paramMap.subscribe((params) => {
         this.eventId = params.get('eventId');
+        if (this._cookieService.check('knownEvents')) {
+          const cookies = this._cookieService.get('knownEvents').split(' ');
+          if(cookies.find(x => x === this.eventId)) {
+            return this._router.navigate([this.eventId]);
+          }
+        }
         this._getEventData();
       });
     }
