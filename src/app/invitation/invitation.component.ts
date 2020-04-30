@@ -195,6 +195,9 @@ export class InvitationComponent implements OnInit {
     })
     .subscribe(({data}) => {
       this._user.platforms = data.addPlatforms.platforms;
+      setTimeout(() => {
+        this._router.navigate(['overview', this.eventId])
+      }, 3000)
     }, (error) => {
       console.error(error);
       this.slide = 0;
