@@ -6,6 +6,7 @@ import { OverviewRoutingModule } from './overview-routing.module';
 import { OverviewComponent } from './overview.component';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { GraphQLModule } from '../graphql.module';
 
 @NgModule({
   declarations: [OverviewComponent],
@@ -13,6 +14,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     CommonModule,
     OverviewRoutingModule,
     FormsModule,
+    GraphQLModule,
     MatSnackBarModule
   ]
 })

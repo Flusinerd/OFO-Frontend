@@ -1,11 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfigService } from './config.service';
+
+const initializerConfigFn = (appConfig: ConfigService) => {
+  return () => {
+    return appConfig.load();
+  };
+};
 
 @NgModule({
   declarations: [
@@ -15,10 +21,15 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    GraphQLModule,
+    HttpClientModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: APP_INITIALIZER,
+    useFactory: initializerConfigFn,
+    multi: true,
+    deps: [ConfigService]
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -89,11 +89,9 @@ export class OverviewComponent implements OnInit {
     })
     .subscribe(({data}:any) => {
       this.event = data.event;
-      console.log('Incoming Data:', this.event);
     }, (err) => {
       this.slide = 0;
       this.idError = true;
-      console.error(err);
     })
   }
 

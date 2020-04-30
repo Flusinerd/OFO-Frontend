@@ -110,11 +110,9 @@ export class HomeComponent implements OnInit {
     formData.platforms.pop();
     this.addPlatforms();
     if (this._cookieService.check('knownEvents')) {
-      console.log(' 🍪  found');
       let cookie = this._cookieService.get('knownEvents');
       this._cookieService.set('knownEvents', cookie+' '+this._event.eventId);
     } else {
-      console.log(' 🍪  not found');
       this._cookieService.set('knownEvents', this._event.eventId);
     }
   }
@@ -288,7 +286,6 @@ export class HomeComponent implements OnInit {
       }
     })
     .subscribe(({data}) => {
-      console.log('MailResponse', data);
       this.eventForm.reset();
     }, (error) => {
       console.error(error);

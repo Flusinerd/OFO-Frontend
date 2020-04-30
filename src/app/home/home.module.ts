@@ -7,6 +7,8 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { GraphQLModule } from '../graphql.module';
+
 
 @NgModule({
   declarations: [HomeComponent],
@@ -15,6 +17,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     HomeRoutingModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    GraphQLModule
   ],
   providers: [
     CookieService
