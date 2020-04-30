@@ -43,7 +43,7 @@ export class OverviewComponent implements OnInit {
         this.eventId = params.get('eventId');
         if (this._cookieService.check('knownEvents')) {
           const cookies = this._cookieService.get('knownEvents').split(' ');
-          if (cookies.find((x) => x === this.eventId)) {
+          if (!cookies.find((x) => x === this.eventId)) {
             return this._router.navigate([this.eventId]);
           }
         }
