@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "ngcc": "ngcc --properties es2015 browser module main --async false",
     "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
