@@ -36,7 +36,13 @@
             <input class="ofo title" [ngModel]="event.title">
             <div *ngFor="let date of event.dates" class="dateRow">
                 <ng-container>
-                    <input class="ofo date" type="text" [ngModel]="convertDate(date.startDate, date.endDate)"><button class="ofo checkPos" [ngClass]="{'posChecked': date.check && date.check == 1, 'negChecked': date.check && date.check == 2}" (click)="check(date, true)">✓</button><button class="ofo checkNeg" [ngClass]="{'negChecked': date.check && date.check == 2, 'posChecked': date.check && date.check == 1}" (click)="check(date, false)">✗</button>
+                  <div class="date-input">
+                    <input class="ofo date" type="text" [ngModel]="convertDate(date.startDate, date.endDate)">
+                  </div>
+                    <div class="buttons">
+                      <button class="ofo checkPos" [ngClass]="{'posChecked': date.check && date.check == 1, 'negChecked': date.check && date.check == 2}" (click)="check(date, true)" [@inOutAnimation]>✓</button>
+                      <button class="ofo checkNeg" [ngClass]="{'negChecked': date.check && date.check == 2, 'posChecked': date.check && date.check == 1}" (click)="check(date, false)">✗</button>
+                    </div>
                 </ng-container>
             </div>
             <button class="ofo next" [disabled]="checkValidity()" (click)="slide = 2">Weiter</button>
@@ -45,7 +51,13 @@
             <input class="ofo title" [ngModel]="event.title">
             <div *ngFor="let platform of event.platforms" class="dateRow">
                 <ng-container>
-                    <input class="ofo date" type="text" [ngModel]="platform.title"><button class="ofo checkPos" [ngClass]="{'posChecked': platform.check && platform.check == 1, 'negChecked': platform.check && platform.check == 2}" (click)="check(platform, true)">✓</button><button class="ofo checkNeg" [ngClass]="{'negChecked': platform.check && platform.check == 2, 'posChecked': platform.check && platform.check == 1}" (click)="check(platform, false)">✗</button>
+                  <div class="date-input">
+                    <input class="ofo date" type="text" [ngModel]="platform.title">
+                  </div>
+                  <div class="buttons">
+                    <button class="ofo checkPos" [ngClass]="{'posChecked': platform.check && platform.check == 1, 'negChecked': platform.check && platform.check == 2}" (click)="check(platform, true)">✓</button>
+                    <button class="ofo checkNeg" [ngClass]="{'negChecked': platform.check && platform.check == 2, 'posChecked': platform.check && platform.check == 1}" (click)="check(platform, false)">✗</button>
+                  </div>
                 </ng-container>
             </div>
             <button class="ofo save" [disabled]="checkValidPlatforms()" (click)="save()">Speichern</button>

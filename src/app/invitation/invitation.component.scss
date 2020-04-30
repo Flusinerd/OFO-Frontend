@@ -19,25 +19,30 @@ div.slide {
 input.title {
     text-align: center;
     margin-top: 73px;
-    width: 90%;
     padding-right: 20px;
     background-color: $color-blue1;
     pointer-events: none;
 }
 
+div.date-input{
+    width: 215px;
+}
+
 input.date {
     padding: 0;
-    padding-left: 10px;
+    padding-left: 5px;
     padding-right: 5px;
-    width: 200px;
     background-color: $color-grey3;
     pointer-events: none;
+    width: calc(100% - 10px);
+    text-align: center;
 }
 
 div.dateRow {
     display: flex;
     flex-flow: row;
     flex-wrap: nowrap;
+    width: 100%;
     margin-top: 20px;
 }
 
@@ -45,7 +50,8 @@ button.checkPos {
     color: $color-green1;
     background-color: $color-grey2;
     margin-left: 10px;
-    transition: all 0.25s;
+    width: 50px;
+    transition: all 0.25s ;
 }
 
 button.checkPos.posChecked {
@@ -55,7 +61,10 @@ button.checkPos.posChecked {
 }
 
 button.checkPos.negChecked {
-    display: none;
+    // display: none;
+    width: 0px;
+    padding: 0px;
+    font-size: 0px;
 }
 
 button.checkNeg {
@@ -63,10 +72,14 @@ button.checkNeg {
     margin-left: 10px;
     background-color: $color-grey2;
     transition: all 0.25s;
+    width: 50px;
 }
 
 button.checkNeg.posChecked {
-    display: none;
+    // display: none;
+    width: 0px;
+    padding: 0px;
+    font-size: 0px;
 }
 
 button.checkNeg.negChecked {
@@ -111,4 +124,11 @@ div.success{
         width: 25%;
         height: auto;
     }
+}
+
+div.buttons{
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 215px);
+    justify-content: space-between;
 }
