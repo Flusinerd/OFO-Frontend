@@ -159,8 +159,13 @@ export class OverviewComponent implements OnInit {
    */
   copyLink(): void {
     const el = document.createElement('textarea');
-    el.value =
-      this.window.location.protocol + '//' + this.window.location.hostname + ':' + this.window.location.port + '/' + this.event.eventId;
+    if (this.window.location.port){
+      el.value =
+        this.window.location.protocol + '//' + this.window.location.hostname + ':' + this.window.location.port + '/' + this.event.eventId;
+    } else {
+      el.value =
+        this.window.location.protocol + '//' + this.window.location.hostname + '/' + this.event.eventId;
+    }
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
