@@ -202,10 +202,14 @@ export class InvitationComponent implements OnInit {
   }
 
   check(date, state: boolean): void {
-    if (state) {
-      date['check'] = 1;
+    if (date['check']){
+      date['check'] = null;
     } else {
-      date['check'] = 2;
+      if (state) {
+        date['check'] = 1;
+      } else {
+        date['check'] = 2;
+      }
     }
   }
   
