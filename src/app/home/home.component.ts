@@ -56,79 +56,9 @@ export class HomeComponent implements OnInit {
     ]),
   });
 
-  addDateGroup(): void {
-    const group = this._fb.group({
-      date: [null],
-      startTime: [null],
-      endTime: [null]
-    });
-
-    this.dates.push(group);
-  }
-
-  addPlatformGroup(): void {
-    const group = this._fb.group({
-      platformName: [''],
-    });
-
-    this.platforms.push(group);
-  }
-
-  addEmailGroup(): void {
-    const group = this._fb.group({
-      mailAdress: [''],
-    });
-
-    this.emails.push(group);
-  }
-
-  checkForNewDateRow(index: number): void {
-    if (index === this.dates.length - 1) {
-      this.addDateGroup();
-    }
-  }
-
-  checkForNewPlatformRow(index: number): void {
-    if (index === this.platforms.length - 1) {
-      this.addPlatformGroup();
-    }
-  }
-
-  checkForNewEmailRow(index: number): void {
-    if (index === this.emails.length - 1) {
-      this.addEmailGroup();
-    }
-  }
-
-  next(): void {
-    this._createEvent();
-  }
-  
-  share(): void {
-    let formData = this.eventForm.value;
-    formData.dates.pop();
-    formData.platforms.pop();
-    this.addPlatforms();
-    if (this._cookieService.check('knownEvents')) {
-      let cookie = this._cookieService.get('knownEvents');
-      this._cookieService.set('knownEvents', cookie+' '+this._event.eventId);
-    } else {
-      this._cookieService.set('knownEvents', this._event.eventId);
-    }
-  }
-
-  copyLink(): void {
-    const el = document.createElement('textarea');
-    el.value = 
-    this.window.location.protocol + '//' + this.window.location.hostname + ':'
-    + this.window.location.port + '/' + this._event.eventId;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    this._snackBar.open('In Zwischenablage kopiert.', 'Schließen', { duration: 3000 });
-  }
-
+  /**
+   * Inits the component
+   */
   ngOnInit() {
     this.addDateGroup();
     this.addPlatformGroup();
@@ -144,14 +74,122 @@ export class HomeComponent implements OnInit {
           console.error(err);
         })
     }
-    
   }
 
+  /**
+   * Adds a new dategroup to the dates form
+   */
+  addDateGroup(): void {
+    const group = this._fb.group({
+      date: [null],
+      startTime: [null],
+      endTime: [null]
+    });
+
+    this.dates.push(group);
+  }
+
+  /**
+   * Adds a new Platform to the platforms form
+   */
+  addPlatformGroup(): void {
+    const group = this._fb.group({
+      platformName: [''],
+    });
+
+    this.platforms.push(group);
+  }
+
+  /**
+   * Adds a new email to the emails form
+   */
+  addEmailGroup(): void {
+    const group = this._fb.group({
+      mailAdress: [''],
+    });
+
+    this.emails.push(group);
+  }
+
+  /**
+   * Checks if a new row needs to be appended to the date form
+   * @param index Index of the row, the event was fired on
+   */
+  checkForNewDateRow(index: number): void {
+    if (index === this.dates.length - 1) {
+      this.addDateGroup();
+    }
+  }
+
+  /**
+   * Checks if a new row needs to be appended to the platform form
+   * @param index Index of the row, the event was fired on
+   */
+  checkForNewPlatformRow(index: number): void {
+    if (index === this.platforms.length - 1) {
+      this.addPlatformGroup();
+    }
+  }
+
+  /**
+   * Checks if a new row needs to be appended to the email form
+   * @param index Index of the row, the event was fired on
+   */
+  checkForNewEmailRow(index: number): void {
+    if (index === this.emails.length - 1) {
+      this.addEmailGroup();
+    }
+  }
+
+  /**
+   * Handles next page click
+   */
+  next(): void {
+    this._createEvent();
+  }
+  
+  /**
+   * Creates the Event and adds the event to the known events cookie
+   */
+  share(): void {
+    let formData = this.eventForm.value;
+    formData.dates.pop();
+    formData.platforms.pop();
+    this.addPlatforms();
+    if (this._cookieService.check('knownEvents')) {
+      let cookie = this._cookieService.get('knownEvents');
+      this._cookieService.set('knownEvents', cookie+' '+this._event.eventId);
+    } else {
+      this._cookieService.set('knownEvents', this._event.eventId);
+    }
+  }
+
+  /**
+   * Copies the event link to the clipboard
+   */
+  copyLink(): void {
+    const el = document.createElement('textarea');
+    el.value = 
+    this.window.location.protocol + '//' + this.window.location.hostname + ':'
+    + this.window.location.port + '/' + this._event.eventId;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this._snackBar.open('In Zwischenablage kopiert.', 'Schließen', { duration: 3000 });
+  }
+
+  /**
+   * Handles retry
+   */
   retry(): void {
     this.eventForm.reset();
     this.slide = 1;
   }
 
+  /**
+   * Creates the event in the backend
+   */
   private _createEvent(){
     const title = this.eventForm.value.title;
     this._apollo.mutate<CreateEventResponse>({
@@ -169,6 +207,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  /**
+   * Creates a new user in the backend and links it to the event
+   */
   private _createUser(){
     const eventId = this._event.id;
     this._apollo.mutate<{createEventUser: EventUserEntity}>({
@@ -201,6 +242,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  /**
+   * Adds the dates to the user in the backend
+   */
   private addDates(){
     const dates = [];
     for (const date of this.dates.value) {
@@ -235,6 +279,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  /**
+   * Adds the platforms the user in the backend
+   */
   private addPlatforms(){
     const platforms = [];
     for (const platform of this.platforms.value) {
@@ -261,6 +308,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  /**
+   * Sends the invite mails 
+   */
   private sendMails(){
     const emails = [];
     for (const email of this.emails.value) {
@@ -293,6 +343,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Handles send button click
+   */
   send(): void{
     this.sendMails();
     setTimeout(() => {

@@ -14,6 +14,9 @@ export class ConfigService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Loads the config.json from the static folder and sets this.url
+   */
   public async load(): Promise<Config> {
     const config =  await this.http
       .get<Config>('assets/config.json')

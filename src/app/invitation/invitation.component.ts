@@ -40,6 +40,9 @@ export class InvitationComponent implements OnInit {
               private _snackBar: MatSnackBar,
               private _cookieService: CookieService) { }
 
+  /**
+   * Inits the component
+   */  
   ngOnInit() {
     if (!this._activeRouteSUB) {
       this._activeRouteSUB = this._activeRoute.paramMap.subscribe((params) => {
@@ -66,7 +69,9 @@ export class InvitationComponent implements OnInit {
     }
   }
   
-
+  /**
+   * Gets the needed eventdata of the event
+   */
   private _getEventData(){
     this._apollo.query({
       query: gql `
@@ -105,6 +110,9 @@ export class InvitationComponent implements OnInit {
     });
   }
 
+  /**
+   * Creates a new user and links the event to the user
+   */
   private _createUser(){
     const eventId = this.event.id;
     this._apollo.mutate<{createEventUser: EventUserEntity}>({
@@ -138,6 +146,9 @@ export class InvitationComponent implements OnInit {
     });
   }
 
+  /**
+   * Links the selected dates to the user
+   */
   private addDates(){
     const dateIds = [];
     for (const date of this.event.dates) {
@@ -170,6 +181,9 @@ export class InvitationComponent implements OnInit {
     });
   }
 
+  /**
+   * Links the selected platforms to the user
+   */
   private addPlatforms(){
     const platformIds = [];
     for (let platform of this.event.platforms) {
@@ -204,18 +218,27 @@ export class InvitationComponent implements OnInit {
     });
   }
 
-  check(date, state: boolean): void {
-    if (date['check']){
-      date['check'] = null;
+  /**
+   * Sets rowData.check to the state or, if rowData.check is already sets it to null
+   * Used for the selecting of dates / platforms
+   * @param rowData Rowdata of the buttons row
+   * @param state true if accept button was clicked, false if decline button was clicked
+   */
+  check(rowData, state: boolean): void {
+    if (rowData['check']){
+      rowData['check'] = null;
     } else {
       if (state) {
-        date['check'] = 1;
+        rowData['check'] = 1;
       } else {
-        date['check'] = 2;
+        rowData['check'] = 2;
       }
     }
   }
   
+  /**
+   * Saves the filled out invite data to the backend
+   */
   save(): void {
     this._createUser();
     if (this._cookieService.check('knownEvents')) {
@@ -226,10 +249,18 @@ export class InvitationComponent implements OnInit {
     }
   }
   
+  /**
+   * Handles retry
+   */
   retry(): void {
     this.slide = 1;
   }
 
+  /**
+   * Converts the dateEntity to a readable format
+   * @param startDate startDate of the dateEntity
+   * @param endDate endDate of the dateEntity
+   */
   convertDate(startDate: string, endDate: string): string {
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
@@ -238,6 +269,10 @@ export class InvitationComponent implements OnInit {
     ' - ' + this._appendZeros(eDate.getHours())+ ':' + this._appendZeros(eDate.getMinutes()) + '';
   }
 
+  /**
+   * Returns a number as string that has 2 digits (filled left with 0)
+   * @param input Number input
+   */
   private _appendZeros(input: number): string{
     if (input < 10) {
       return '0' + input;
@@ -246,6 +281,9 @@ export class InvitationComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks if all dates are either accepted or declined
+   */
   checkValidity(): boolean {
     for (let date of this.event.dates) {
       if (!date.check) {
@@ -255,6 +293,9 @@ export class InvitationComponent implements OnInit {
     return false;
   }
 
+  /**
+   * Checks if all platforms are either accpted or declined
+   */
   checkValidPlatforms(): boolean {
     for (let platform of this.event.platforms) {
       if (!platform.check) {
