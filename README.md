@@ -1,6 +1,15 @@
-# OfoApp
+<h2 align="center">OFO Frontend</h2>
+<p align="center">
+  <a href="https://travis-ci.com/github/Datenlotse/OFO-Frontend">
+    <img src="https://travis-ci.com/Datenlotse/OFO-Frontend.svg?branch=master" />
+  </a>
+</p>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.17.
+
+## Installation for the OFO-App
+
+Please head over to [OFO APP](https://github.com/Datenlotse/OFO) for installing the OFO-App. This is only the frontend.
 
 ## Development server
 
