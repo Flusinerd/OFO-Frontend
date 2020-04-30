@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  graphQlUrl: 'http://localhost:3000/graphql',
+  graphQlUrl: 'http://ofo.jan-krueger.eu:3000/graphql',
 };
