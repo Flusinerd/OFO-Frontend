@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, InjectionToken, Inject } from '@angular/core';
 import { inOutAnimation } from '../animations/slide';
 import { FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { EventEntity } from '../../shared/event/event.interface';
@@ -8,6 +9,13 @@ import { EventUserEntity } from '../../shared/event_user/event_user.interface';
 import { CreateEventResponse } from '../../shared/event/createEvent.response';
 import { AddDatesResponse } from '../../shared/frontend/addDates.response';
 import { AddPlatformsResponse } from '../../shared/frontend/addPlatforms.response';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CookieService } from 'ngx-cookie-service';
+
+export const WINDOW = new InjectionToken('window',
+    { providedIn: 'root', factory: () => window }
+);
 
 @Component({
   selector: 'app-home',
@@ -21,7 +29,11 @@ export class HomeComponent implements OnInit {
   private _event: EventEntity;
   private _user: EventUserEntity;
 
-  constructor(private _fb: FormBuilder, private _apollo:Apollo) { }
+  constructor(private _fb: FormBuilder,
+              private _apollo:Apollo,
+              @Inject(WINDOW) private window: Window,
+              private _cookieService: CookieService,
+              private _snackBar: MatSnackBar) { }
 
   eventForm = this._fb.group({
     title: ['', Validators.required],
@@ -36,6 +48,11 @@ export class HomeComponent implements OnInit {
       this._fb.group({
         platformName: ['', Validators.required],
       }),
+    ]),
+    emails: this._fb.array([
+      this._fb.group({
+        mailAdress: [''],
+      })
     ]),
   });
 
@@ -57,6 +74,14 @@ export class HomeComponent implements OnInit {
     this.platforms.push(group);
   }
 
+  addEmailGroup(): void {
+    const group = this._fb.group({
+      mailAdress: [''],
+    });
+
+    this.emails.push(group);
+  }
+
   checkForNewDateRow(index: number): void {
     if (index === this.dates.length - 1) {
       this.addDateGroup();
@@ -69,6 +94,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  checkForNewEmailRow(index: number): void {
+    if (index === this.emails.length - 1) {
+      this.addEmailGroup();
+    }
+  }
+
   next(): void {
     this._createEvent();
   }
@@ -77,18 +108,54 @@ export class HomeComponent implements OnInit {
     let formData = this.eventForm.value;
     formData.dates.pop();
     formData.platforms.pop();
-    console.log(formData);
-    
+    this.addPlatforms();
+    if (this._cookieService.check('knownEvents')) {
+      console.log(' 🍪  found');
+      let cookie = this._cookieService.get('knownEvents');
+      this._cookieService.set('knownEvents', cookie+' '+this._event.eventId);
+    } else {
+      console.log(' 🍪  not found');
+      this._cookieService.set('knownEvents', this._event.eventId);
+    }
+  }
+
+  copyLink(): void {
+    const el = document.createElement('textarea');
+    el.value = 
+    this.window.location.protocol + '//' + this.window.location.hostname + ':'
+    + this.window.location.port + '/' + this._event.eventId;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this._snackBar.open('In Zwischenablage kopiert.', 'Schließen', { duration: 3000 });
   }
 
   ngOnInit() {
     this.addDateGroup();
     this.addPlatformGroup();
+    this.addEmailGroup();
+    // Check for Cookie Acceptance
+    if (!this._cookieService.check('cookiesAccepted')) {
+      let cookieWarning = this._snackBar.open('Wir brauchen 🍪!!', 'OK');
+      cookieWarning.onAction().toPromise()
+        .then(() => {
+          this._cookieService.set('cookiesAccepted', 'Yeess Boiiiiiiiii');
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    }
+    
+  }
+
+  retry(): void {
+    this.eventForm.reset();
+    this.slide = 1;
   }
 
   private _createEvent(){
     const title = this.eventForm.value.title;
-    console.log(title);
     this._apollo.mutate<CreateEventResponse>({
       mutation: gql`mutation createEvent($title: String!){
           createEvent(input: {title: $title}) {id, title, eventId}
@@ -97,14 +164,15 @@ export class HomeComponent implements OnInit {
     })
     .subscribe(({data}) => {
       this._event = data.createEvent;
-      console.log(this._event);
       this._createUser();
-    }, (error) => console.error(error))
+    }, (error) => {
+      console.error(error);
+      this.slide = 0;
+    })
   }
 
   private _createUser(){
     const eventId = this._event.id;
-    console.log(eventId)
     this._apollo.mutate<{createEventUser: EventUserEntity}>({
       mutation: gql`
         mutation createUser($eventId: Int!) {
@@ -129,7 +197,10 @@ export class HomeComponent implements OnInit {
     .subscribe(({data}) => {
       this._user = data.createEventUser;
       this.addDates();
-    }, (error) => console.error(error))
+    }, (error) =>{
+      console.error(error);
+      this.slide = 0;
+    })
   }
 
   private addDates(){
@@ -163,14 +234,13 @@ export class HomeComponent implements OnInit {
       }
     }).subscribe(({data}) => {
       this._user.dates = data.addDates.dates;
-      console.log(this._user);
     })
   }
 
   private addPlatforms(){
     const platforms = [];
     for (const platform of this.platforms.value) {
-      platforms.push({title: platform});
+      platforms.push({title: platform.platformName});
     }
     this._apollo.mutate<AddPlatformsResponse>({
       mutation: gql`
@@ -193,6 +263,46 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  private sendMails(){
+    const emails = [];
+    for (const email of this.emails.value) {
+      if (email.mailAdress != '') {
+        emails.push(email.mailAdress);
+      }
+    }
+    this._apollo.mutate<AddPlatformsResponse>({
+      mutation: gql`
+        mutation($link:String!,$eventId: Int!, $emails: [String!]!){
+          sendEmails(input:{
+            link:$link,
+            eventId:$eventId,
+            emails: $emails
+          })
+        }
+      `,
+      variables: {
+        link: this.window.location.protocol + '//' + this.window.location.hostname + ':'
+        + this.window.location.port + '/' + this._event.eventId,
+        eventId: this._event.id,
+        emails
+      }
+    })
+    .subscribe(({data}) => {
+      console.log('MailResponse', data);
+      this.eventForm.reset();
+    }, (error) => {
+      console.error(error);
+      this.slide = 0;
+    });
+  }
+
+  send(): void{
+    this.sendMails();
+    setTimeout(() => {
+      this.slide = 1;
+    }, 3000)
+  }
+
   get title(): AbstractControl {
     return this.eventForm.get('title');
   }
@@ -200,11 +310,15 @@ export class HomeComponent implements OnInit {
   get dates(): FormArray {
     return this.eventForm.get('dates') as FormArray;
   }
-
-  get platforms(): FormArray {
-    return this.eventForm.get('platforms') as FormArray;
-  }
-
+  
+    get platforms(): FormArray {
+      return this.eventForm.get('platforms') as FormArray;
+    }
+  
+    get emails(): FormArray {
+      return this.eventForm.get('emails') as FormArray;
+    }
+  
   get user(): EventUserEntity {
     return this._user;
   }

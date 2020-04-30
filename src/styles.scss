@@ -4,11 +4,14 @@
 // Colors
 $color-grey2: #4f4f4f;
 $color-grey3: #828282;
+$color-grey6: #f2f2f2;
 $color-orange: #f2994a;
 $color-yellow: #F2C94C;
 $color-green1: #219653;
+$color-blue1: #2F80ED;
 $color-blue3: #56CCF2;
 $color-purple2: #BB6BD9;
+$color-red: #EB5757;
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -19,7 +22,25 @@ body {
     overflow-x: hidden;
 }
 
-button, input.ofo {
+div.view {
+    position: absolute;
+    width: 340px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    span.appTitle {
+        font-size: 6rem;
+        font-weight: 200;
+        opacity: 0;
+        animation: fadein 1s ease-in 0s forwards;
+        -webkit-animation: fadein 1s ease-in 0s forwards;
+        -o-animation: fadein 1s ease-in 0s forwards;
+        -moz-animation: fadein 1s ease-in 0s forwards;
+        -ms-animation: fadein 1s ease-in 0s forwards;
+    }
+}
+
+button, a, input, span.ofo {
     font-family: 'Montserrat', sans-serif;
     font-weight: 200;
     height: 46px;
@@ -37,4 +58,128 @@ button.ofo {
     text-align: center;
     padding-right: 20px;
     font-weight: 400;
+}
+
+div.author {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    min-width: 10px;
+    min-height: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    color: $color-grey3;
+}
+
+div.fail{
+    background-color: $color-red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    border-radius: 50px;
+    img {
+        width: 25%;
+        height: auto;
+    }
+}
+
+button.retry {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $color-orange;
+    width: 80%;
+    transition: all 0.5s;
+}
+
+button.retry:hover {
+    background-color: rgb(243, 188, 139);
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein { 
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@-ms-keyframes fadein {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@-moz-keyframes fadein {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; }
+
+#logo{
+    stroke: $color-grey6;
+    animation: fill 0.5s ease forwards 1.3s;
+    fill: transparent
+}
+
+// Logo animation
+#logo path:nth-child(1){
+    stroke-dasharray: 430px;
+    stroke-dashoffset: 430px;
+    animation: line-anim 2s ease forwards;
+}
+#logo path:nth-child(2){
+    stroke-dasharray: 355px;
+    stroke-dashoffset: 355px;
+    animation: line-anim 2s ease forwards 0.3s;
+}
+#logo path:nth-child(3){
+    stroke-dasharray: 430px;
+    stroke-dashoffset: 430px;
+    animation: line-anim 2s ease forwards 0.6s;
+}
+
+@keyframes line-anim{
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fill{
+    from{
+        fill: transparent;
+    }
+    to{
+        fill: $color-grey6;
+    }
 }

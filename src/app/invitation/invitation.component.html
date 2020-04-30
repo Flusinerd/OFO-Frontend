@@ -1,1 +1,66 @@
-<p>invitation works!</p>
+<div class="view">
+    <svg
+      id = "logo"
+      width="227.762"
+      height="73.634"
+      viewBox="-1 0 240.762 73.634"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        id="svgGroup"
+        stroke-linecap="round"
+        fill-rule="evenodd"
+        font-size="9pt"
+        stroke-width="0.25mm"
+      >
+        <path
+          d="M 24.641 71.622 A 40.499 40.499 0 0 0 37.545 73.633 A 45.858 45.858 0 0 0 39.517 73.591 A 38.528 38.528 0 0 0 56.785 68.849 Q 65.417 64.065 70.305 55.641 A 35.498 35.498 0 0 0 72.909 50.112 A 38.082 38.082 0 0 0 75.193 36.817 Q 75.193 26.417 70.305 17.993 Q 65.417 9.569 56.785 4.785 A 37.253 37.253 0 0 0 50.617 2.061 A 40.65 40.65 0 0 0 37.545 0.001 A 45.633 45.633 0 0 0 35.249 0.058 A 38.136 38.136 0 0 0 18.357 4.785 Q 9.777 9.569 4.889 17.993 A 35.498 35.498 0 0 0 2.285 23.522 A 38.082 38.082 0 0 0 0.001 36.817 Q 0.001 47.217 4.889 55.641 Q 9.777 64.065 18.357 68.849 A 36.807 36.807 0 0 0 24.641 71.622 Z M 37.545 70.409 A 36.145 36.145 0 0 0 49.865 68.345 A 33.537 33.537 0 0 0 54.913 66.041 Q 62.713 61.673 67.185 53.977 Q 71.657 46.281 71.657 36.817 A 34.512 34.512 0 0 0 69.446 24.382 A 32.505 32.505 0 0 0 67.185 19.657 Q 62.713 11.961 54.913 7.593 Q 47.113 3.225 37.545 3.225 A 36.113 36.113 0 0 0 25.771 5.106 A 33.075 33.075 0 0 0 20.229 7.593 Q 12.481 11.961 8.009 19.657 Q 3.537 27.353 3.537 36.817 A 34.512 34.512 0 0 0 5.748 49.252 A 32.505 32.505 0 0 0 8.009 53.977 Q 12.481 61.673 20.229 66.041 A 34.203 34.203 0 0 0 35.767 70.371 A 40.838 40.838 0 0 0 37.545 70.409 Z"
+          id="0"
+          vector-effect="non-scaling-stroke"
+        />
+        <path
+          d="M 142.169 3.641 L 97.969 3.641 L 97.969 36.921 L 137.489 36.921 L 137.489 40.041 L 97.969 40.041 L 97.969 73.217 L 94.433 73.217 L 94.433 0.417 L 142.169 0.417 L 142.169 3.641 Z"
+          id="1"
+          vector-effect="non-scaling-stroke"
+        />
+        <path
+          d="M 177.209 71.622 A 40.499 40.499 0 0 0 190.113 73.633 A 45.858 45.858 0 0 0 192.085 73.591 A 38.528 38.528 0 0 0 209.353 68.849 Q 217.985 64.065 222.873 55.641 A 35.498 35.498 0 0 0 225.477 50.112 A 38.082 38.082 0 0 0 227.761 36.817 Q 227.761 26.417 222.873 17.993 Q 217.985 9.569 209.353 4.785 A 37.253 37.253 0 0 0 203.185 2.061 A 40.65 40.65 0 0 0 190.113 0.001 A 45.633 45.633 0 0 0 187.817 0.058 A 38.136 38.136 0 0 0 170.925 4.785 Q 162.345 9.569 157.457 17.993 A 35.498 35.498 0 0 0 154.853 23.522 A 38.082 38.082 0 0 0 152.569 36.817 Q 152.569 47.217 157.457 55.641 Q 162.345 64.065 170.925 68.849 A 36.807 36.807 0 0 0 177.209 71.622 Z M 190.113 70.409 A 36.145 36.145 0 0 0 202.433 68.345 A 33.537 33.537 0 0 0 207.481 66.041 Q 215.281 61.673 219.753 53.977 Q 224.225 46.281 224.225 36.817 A 34.512 34.512 0 0 0 222.014 24.382 A 32.505 32.505 0 0 0 219.753 19.657 Q 215.281 11.961 207.481 7.593 Q 199.681 3.225 190.113 3.225 A 36.113 36.113 0 0 0 178.339 5.106 A 33.075 33.075 0 0 0 172.797 7.593 Q 165.049 11.961 160.577 19.657 Q 156.105 27.353 156.105 36.817 A 34.512 34.512 0 0 0 158.316 49.252 A 32.505 32.505 0 0 0 160.577 53.977 Q 165.049 61.673 172.797 66.041 A 34.203 34.203 0 0 0 188.335 70.371 A 40.838 40.838 0 0 0 190.113 70.409 Z"
+          id="2"
+          vector-effect="non-scaling-stroke"
+        />
+      </g>
+    </svg>
+  
+    <div class="slideholder">
+        <div *ngIf="slide == 1 && event" [@inOutAnimation] class="slide">
+            <input class="ofo title" [ngModel]="event.title">
+            <div *ngFor="let date of event.dates" class="dateRow">
+                <ng-container>
+                    <input class="ofo date" type="text" [ngModel]="convertDate(date.startDate, date.endDate)"><button class="ofo checkPos" [ngClass]="{'posChecked': date.check && date.check == 1, 'negChecked': date.check && date.check == 2}" (click)="check(date, true)">✓</button><button class="ofo checkNeg" [ngClass]="{'negChecked': date.check && date.check == 2, 'posChecked': date.check && date.check == 1}" (click)="check(date, false)">✗</button>
+                </ng-container>
+            </div>
+            <button class="ofo next" [disabled]="checkValidity()" (click)="slide = 2">Weiter</button>
+        </div>
+        <div *ngIf="slide == 2 && event" [@inOutAnimation] class="slide">
+            <input class="ofo title" [ngModel]="event.title">
+            <div *ngFor="let platform of event.platforms" class="dateRow">
+                <ng-container>
+                    <input class="ofo date" type="text" [ngModel]="platform.title"><button class="ofo checkPos" [ngClass]="{'posChecked': platform.check && platform.check == 1, 'negChecked': platform.check && platform.check == 2}" (click)="check(platform, true)">✓</button><button class="ofo checkNeg" [ngClass]="{'negChecked': platform.check && platform.check == 2, 'posChecked': platform.check && platform.check == 1}" (click)="check(platform, false)">✗</button>
+                </ng-container>
+            </div>
+            <button class="ofo save" [disabled]="checkValidPlatforms()" (click)="save()">Speichern</button>
+        </div>
+        <div *ngIf="slide === 3 && event" [@inOutAnimation] class="slide">
+            <div class="success">
+                <img src="../../assets/done-white-48dp.svg">
+            </div>
+        </div>
+        <div *ngIf="slide === 0" [@inOutAnimation] class="slide">
+            <div class="fail">
+                <img src="../../assets/error-white-48dp.svg">
+                <span *ngIf="idError">Die ID ist ungültig</span>
+            </div>
+            <button *ngIf="!idError" class="ofo retry" (click)="retry()">Erneut versuchen</button>
+        </div>
+    </div>
+</div>

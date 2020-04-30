@@ -1,16 +1,13 @@
 @import '../../styles.scss';
 
-div.view {
-    position: absolute;
-    width: 340px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    span {
-        font-size: 6rem;
-        font-weight: 200;
-    }
-}
+// span.appTitle {
+//     opacity: 0;
+//     animation: fadein 1s ease-in 0s forwards;
+//     -webkit-animation: fadein 1s ease-in 0s forwards;
+//     -o-animation: fadein 1s ease-in 0s forwards;
+//     -moz-animation: fadein 1s ease-in 0s forwards;
+//     -ms-animation: fadein 1s ease-in 0s forwards;
+// }
 
 div.slideholder {
     position: relative;
@@ -24,12 +21,14 @@ div.slide {
     position: absolute;
     transform: scale(0.8);
     display: flex;
+    width: 100%;
     flex-direction: column;
 }
 
 input.title {
     margin-top: 73px;
-    width: 90%;
+    width: 89%;
+    font-size: 1.1rem;
     padding-right: 20px;
     background-color: $color-orange;
 }
@@ -42,9 +41,8 @@ input.title {
 
 input.date {
     padding: 0;
-    padding-left: 10px;
-    padding-right: 5px;
-    width: 140px;
+    padding-left: 5px;
+    width: 150px;
     background-color: $color-grey3;
 }
 
@@ -69,7 +67,7 @@ button.next {
 }
 
 input.platform {
-    width: 241px;
+    width: 100%;
     background-color: $color-grey3;
 }
 
@@ -81,24 +79,45 @@ button.ofo {
 
 button.share {
     background-color: $color-yellow;
+    align-self: flex-end;
     color: black;
     transition: opacity 0.25s;
 } :disabled {
     opacity: 0;
 }
 
-input.link {
+a.link {
     margin-top: 73px;
+    margin-left: 0;
     background-color: $color-purple2;
-    width: 260px;
+    width: 100%;
     padding-left: 0px;
     color: #f2f2f2;
-    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    transition: all 0.5s;
+    span {
+        font-size: 1.2rem;
+    }
+}
+
+a.link:hover {
+    background-color: rgb(255, 8, 222);
 }
 
 button.send {
+    align-self: flex-end;
     background-color: $color-blue3;
     color: black;
+    transition: background-color 0.5s;
+}
+
+button.send:hover {
+    background-color: rgb(154, 230, 255);
 }
 
 div.dateRow {
@@ -107,3 +126,18 @@ div.dateRow {
     flex-wrap: nowrap;
     margin-top: 20px;
 }
+
+div.success{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: $color-green1;
+    height: 200px;
+    border-radius: 50px;
+    img {
+        width: 25%;
+        height: auto;
+    }
+}
+

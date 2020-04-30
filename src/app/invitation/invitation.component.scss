@@ -1,0 +1,114 @@
+@import '../../styles.scss';
+
+div.slideholder {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-height: 400px;
+    min-width: 260px;
+}
+
+div.slide {
+    position: absolute;
+    transform: scale(0.8);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+input.title {
+    text-align: center;
+    margin-top: 73px;
+    width: 90%;
+    padding-right: 20px;
+    background-color: $color-blue1;
+    pointer-events: none;
+}
+
+input.date {
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 5px;
+    width: 200px;
+    background-color: $color-grey3;
+    pointer-events: none;
+}
+
+div.dateRow {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    margin-top: 20px;
+}
+
+button.checkPos {
+    color: $color-green1;
+    background-color: $color-grey2;
+    margin-left: 10px;
+    transition: all 0.25s;
+}
+
+button.checkPos.posChecked {
+    background-color: $color-green1;
+    color: white;
+    width: 100%;
+}
+
+button.checkPos.negChecked {
+    display: none;
+}
+
+button.checkNeg {
+    color: $color-red;
+    margin-left: 10px;
+    background-color: $color-grey2;
+    transition: all 0.25s;
+}
+
+button.checkNeg.posChecked {
+    display: none;
+}
+
+button.checkNeg.negChecked {
+    background-color: $color-red;
+    color: white;
+    width: 100%;
+}
+
+button.next {
+    margin-top: 20px;
+    align-self: flex-end;
+    background-color: $color-orange;
+    width: 170px;
+    transition: background-color 0.25s, color 0.25s, opacity 0.25s;
+} :disabled {
+    background-color: $color-grey2 !important;
+    color: $color-grey3 !important;
+    // opacity: 0;
+}
+
+button.save {
+    margin-top: 20px;
+    align-self: flex-end;
+    background-color: $color-blue1;
+    width: 170px;
+    transition: background-color 0.25s, color 0.25s, opacity 0.25s;
+} :disabled {
+    background-color: $color-grey2 !important;
+    color: $color-grey3 !important;
+    // opacity: 0;
+}
+
+div.success{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: $color-green1;
+    height: 200px;
+    border-radius: 50px;
+    img {
+        width: 25%;
+        height: auto;
+    }
+}
