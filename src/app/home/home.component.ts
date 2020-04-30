@@ -171,10 +171,10 @@ export class HomeComponent implements OnInit {
     const el = document.createElement('textarea');
     if (this.window.location.port){
       el.value =
-        this.window.location.protocol + '//' + this.window.location.hostname + ':' + this.window.location.port + '/' + this.event.eventId;
+        this.window.location.protocol + '//' + this.window.location.hostname + ':' + this.window.location.port + '/' + this._event.eventId;
     } else {
       el.value =
-        this.window.location.protocol + '//' + this.window.location.hostname + '/' + this.event.eventId;
+        this.window.location.protocol + '//' + this.window.location.hostname + '/' + this._event.eventId;
     }
     document.body.appendChild(el);
     el.select();
