@@ -40,14 +40,15 @@
         [ngClass]="{ inactive: i == dates.length - 1 }"
       >
         <ng-container [formGroup]="date">
-          <input formControlName="date" class="ofo date" type="date" />
-          <input formControlName="startTime" class="ofo time" type="time" />
+          <input formControlName="date" class="ofo date" type="date" placeholder="dd-mm-yyy"/>
+          <input formControlName="startTime" class="ofo time" type="time" placeholder="hh:mm"/>
           <input
             formControlName="endTime"
             class="ofo time"
             type="time"
             (keyup.Tab)="checkForNewDateRow(i)"
             (click)="checkForNewDateRow(i)"
+            placeholder="hh:mm"
           />
         </ng-container>
       </div>
