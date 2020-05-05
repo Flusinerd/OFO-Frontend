@@ -28,9 +28,3 @@ jobs:
       if: branch = master
       name: "Build frontend"
       script: "ng build --prod"
-      deploy:
-        provider: releases
-        skip_cleanup: true
-        api_key: $GITHUB_TOKEN
-        file: dist/*
-        file_glob: true
